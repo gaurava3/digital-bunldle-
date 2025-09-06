@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Bundle Landing – High-Converting Funnel</title>
+  <meta name="description" content="A clean, fast landing page to sell your digital bundle with Stripe checkout, countdown urgency, FAQs, testimonials and more." />
+  <meta property="og:title" content="Digital Bundle – Limited Time Offer" />
+  <meta property="og:description" content="Grab the full bundle today. Instant download." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://your-cdn.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --panel: #111521;
+      --muted: #9aa4b2;
+      --text: #f6f7fb;
+      --brand: #7c5cff; /* primary */
+      --brand-2: #19c37d; /* accent */
+      --danger: #ff5c7a;
+      --ring: rgba(124, 92, 255, .45);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 70% -10%, rgba(124,92,255,.25), transparent 60%),
+                  radial-gradient(900px 600px at -10% 10%, rgba(25,195,125,.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Layout helpers */
+    .container { width: min(1120px, 92vw); margin: 0 auto; }
+    .grid-2 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 36px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 980px) { .grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } }
+
+    /* Top bar */
+    .topbar { position: sticky; top: 0; z-index: 30; backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(11,13,18,.82), rgba(11,13,18,.52)); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 0; }
+    .brand { display:flex; gap:10px; align-items:center; font-weight: 800; letter-spacing: .2px; }
+    .brand-badge { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); }
+    .nav-cta { display:flex; gap:10px; align-items:center; }
+
+    /* Buttons */
+    .btn { appearance:none; border:none; cursor:pointer; padding: 14px 18px; border-radius: 12px; font-weight: 700; letter-spacing: .2px; transition: transform .06s ease, box-shadow .2s ease, background .2s ease; }
+    .btn-primary { background: linear-gradient(180deg, var(--brand), #5e3dff); color: white; box-shadow: 0 10px 20px rgba(124,92,255,.35), inset 0 1px 0 rgba(255,255,255,.12); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 24px rgba(124,92,255,.45); }
+    .btn-ghost { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid rgba(255,255,255,.08); }
+    .btn-ghost:hover { background: rgba(255,255,255,.1); }
+    .btn-block { width: 100%; text-align:center; }
+
+    /* Hero */
+    .hero { padding: 40px 0 24px; }
+    .badge { display:inline-flex; align-items:center; gap:10px; padding: 8px 12px; border-radius: 999px; background: rgba(25,195,125,.12); color: #bff3db; border: 1px dashed rgba(25,195,125,.35); font-weight: 600; }
+    .h1 { font-size: clamp(34px, 5vw, 54px); line-height: 1.1; margin: 10px 0; letter-spacing: -.4px; }
+    .lead { color: var(--muted); font-size: clamp(15px, 2.5vw, 18px); }
+
+    .panel { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); box-shadow: var(--shadow); border-radius: var(--radius); }
+
+    .hero-card { padding: 18px; }
+    .price { display:flex; align-items:end; gap: 10px; font-weight: 800; font-size: 42px; }
+    .price small { font-size: 14px; color: var(--muted); font-weight: 600; }
+    .list { margin: 14px 0; padding: 0; list-style: none; }
+    .list li { display:flex; gap: 10px; align-items: flex-start; margin: 10px 0; }
+    .check { width: 22px; height: 22px; border-radius: 6px; background: radial-gradient(circle at 70% 30%, #fff, #fff 40%, transparent 42%) var(--brand); display:inline-block; flex: 0 0 auto; }
+
+    /* Social proof */
+    .proof { display:flex; gap: 12px; align-items:center; color: var(--muted); font-size: 14px; }
+    .avatars { display:flex; }
+    .avatar { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #0b0d12; background: #ccc; margin-left: -8px; }
+
+    /* Sections */
+    section { padding: 48px 0; }
+    h2 { font-size: clamp(26px, 3.5vw, 36px); margin: 0 0 12px; }
+    p.section-lead { color: var(--muted); margin-top: 0; }
+
+    /* Feature grid */
+    .feature { padding: 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); }
+    .feature h3 { margin: 6px 0; }
+    .icon { width: 38px; height: 38px; border-radius: 12px; background: rgba(124,92,255,.15); display:grid; place-items:center; font-weight:800; }
+
+    /* Testimonial */
+    .testimonial { display:flex; gap: 16px; align-items:flex-start; padding: 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); }
+
+    /* FAQ */
+    .faq { border-radius: 16px; overflow:hidden; }
+    details { border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.02); }
+    summary { list-style:none; cursor:pointer; padding: 18px 20px; font-weight: 600; }
+    details[open] summary { background: rgba(255,255,255,.04); }
+    details p { padding: 0 20px 18px; margin: 0; color: var(--muted); }
+
+    /* Footer */
+    footer { padding: 36px 0 64px; color: var(--muted); font-size: 14px; }
+
+    /* Sticky mobile CTA */
+    .sticky-cta { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+      width: min(680px, 94vw); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 12px; display:flex; align-items:center; gap: 12px; box-shadow: var(--shadow); }
+    .sticky-cta .price { font-size: 28px; }
+    @media (min-width: 980px) { .sticky-cta { display:none; } }
+
+    /* Cookie notice */
+    .cookie { position: fixed; right: 16px; bottom: 16px; width: min(420px, 92vw); padding: 14px; border-radius: 14px; background: #0e1420; border: 1px solid rgba(255,255,255,.08); box-shadow: var(--shadow); display:none; }
+    .cookie p { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
+
+    /* Form */
+    .input { width: 100%; padding: 14px 12px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); color: var(--text); }
+    .row { display:flex; gap: 10px; }
+    @media (max-width: 520px) { .row { flex-direction: column; } }
+
+    /* Utility */
+    .center { text-align:center; }
+    .muted { color: var(--muted); }
+    .mt-10 { margin-top: 10px; }
+    .mt-20 { margin-top: 20px; }
+    .mb-0 { margin-bottom: 0; }
+    .small { font-size: 13px; }
+    .strike { text-decoration: line-through; opacity: .6; }
+  </style>
+</head>
+<body>
+  <!-- Top Nav -->
+  <div class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true"></div>
+        <div>ReelBundle <span class="muted" style="font-weight:600">by YourBrand</span></div>
+      </div>
+      <div class="nav-cta">
+        <a href="#pricing" class="btn btn-ghost">What's inside</a>
+        <a href="#buy" class="btn btn-primary">Get the Bundle</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container grid-2">
+      <div>
+        <span class="badge">⚡ Limited-time – <span id="countdown">Loading…</span></span>
+        <h1 class="h1">Create scroll-stopping reels in minutes – <span style="color:var(--brand-2)">without editing from scratch</span>.</h1>
+        <p class="lead">Get plug-and-play templates, captions, hooks, and a step-by-step guide. Perfect for creators, coaches, and small businesses.</p>
+        <div class="proof mt-20">
+          <div class="avatars">
+            <span class="avatar" style="background:url('https://i.pravatar.cc/80?img=5') center/cover"></span>
+            <span class="avatar" style="background:url('https://i.pravatar.cc/80?img=15') center/cover"></span>
+            <span class="avatar" style="background:url('https://i.pravatar.cc/80?img=22') center/cover"></span>
+            <span class="avatar" style="background:url('https://i.pravatar.cc/80?img=40') center/cover"></span>
+          </div>
+          <span>Over <strong>2,400+</strong> creators joined last month</span>
+        </div>
+      </div>
+
+      <aside class="panel hero-card">
+        <div class="panel" style="padding: 10px; border-radius: 14px; background: linear-gradient(180deg, rgba(124,92,255,.15), rgba(255,255,255,.02))">
+          <img src="https://images.unsplash.com/photo-1557825835-70d97c4aa29a?q=80&w=1200&auto=format&fit=crop" alt="bundle preview" style="width:100%; border-radius: 12px; display:block" />
+        </div>
+        <div class="row mt-20" style="align-items:center; justify-content:space-between">
+          <div class="price">₹499 <small class="strike">₹2,999</small></div>
+          <div class="small muted">Instant download • Lifetime access</div>
+        </div>
+        <a id="buy" href="#" class="btn btn-primary btn-block mt-20" onclick="openCheckout(event)">Buy Now – Get Access</a>
+        <div class="center small muted mt-10">Backed by a 7‑day money‑back guarantee</div>
+        <ul class="list mt-20">
+          <li><span class="check"></span> 120+ Reel templates (Canva + CapCut)</li>
+          <li><span class="check"></span> 300 Hook ideas & captions</li>
+          <li><span class="check"></span> Content calendar + posting checklist</li>
+          <li><span class="check"></span> Bonus: 20 royalty‑free music cues</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <!-- What you get -->
+  <section id="inside">
+    <div class="container">
+      <h2>What’s inside the bundle</h2>
+      <p class="section-lead">Everything you need to publish high-performing reels in less time.</p>
+      <div class="grid-3 mt-20">
+        <div class="feature">
+          <div class="icon">🎬</div>
+          <h3>Editable Templates</h3>
+          <p class="muted">Drop in your clips and change colors in seconds. No advanced editing required.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">🧠</div>
+          <h3>Hooks & Scripts</h3>
+          <p class="muted">Proven hooks, captions and structures you can copy-paste and tweak for your niche.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">📅</div>
+          <h3>Posting System</h3>
+          <p class="muted">30-day calendar + checklist to keep your content consistent and stress-free.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section>
+    <div class="container grid-3">
+      <div class="testimonial">
+        <img class="avatar" src="https://i.pravatar.cc/80?img=12" alt="avatar" />
+        <div>
+          <strong>Priya K.</strong>
+          <p class="mb-0">“Went from 0 to 15K views in a week. Templates are a lifesaver.”</p>
+        </div>
+      </div>
+      <div class="testimonial">
+        <img class="avatar" src="https://i.pravatar.cc/80?img=48" alt="avatar" />
+        <div>
+          <strong>Rahul M.</strong>
+          <p class="mb-0">“Clean designs and solid hooks. Posting is 5x faster now.”</p>
+        </div>
+      </div>
+      <div class="testimonial">
+        <img class="avatar" src="https://i.pravatar.cc/80?img=31" alt="avatar" />
+        <div>
+          <strong>Ananya S.</strong>
+          <p class="mb-0">“Worth every rupee. My DMs are finally busy.”p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing / Guarantee -->
+  <section id="pricing">
+    <div class="container grid-2">
+      <div class="panel" style="padding: 20px;">
+        <h2>Simple, one‑time price</h2>
+        <p class="section-lead">No subscriptions. Free updates for 1 year.</p>
+        <div class="row" style="align-items:end; gap: 20px;">
+          <div>
+            <div class="price">₹499 <small class="strike">₹2,999</small></div>
+            <div class="small muted">+ GST if applicable</div>
+          </div>
+          <a href="#" class="btn btn-primary" onclick="openCheckout(event)">Buy the Bundle</a>
+        </div>
+        <ul class="list mt-20">
+          <li><span class="check"></span> Instant access via email</li>
+          <li><span class="check"></span> Personal license (1 user)</li>
+          <li><span class="check"></span> 7‑day refund policy</li>
+        </ul>
+      </div>
+
+      <div class="panel" style="padding: 20px;">
+        <h2>Frequently asked questions</h2>
+        <div class="faq mt-20">
+          <details>
+            <summary>How do I receive the files?</summary>
+            <p>You get a secure download link immediately after checkout and in your inbox.</p>
+          </details>
+          <details>
+            <summary>Do I need paid software?</summary>
+            <p>No. Templates work with free versions of Canva and CapCut.</p>
+          </details>
+          <details>
+            <summary>Can I use this for clients?</summary>
+            <p>Yes, you can create content for clients. You can’t resell the templates themselves.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lead capture (optional) -->
+  <section>
+    <div class="container panel" style="padding: 20px;">
+      <div class="grid-2">
+        <div>
+          <h2>Not ready to buy? Try 10 free hooks</h2>
+          <p class="muted">Drop your email and we’ll send a free sample pack + tips.</p>
+        </div>
+        <form id="lead" class="row" action="#" method="post">
+          <input class="input" type="email" name="email" placeholder="you@example.com" required />
+          <button class="btn btn-ghost" type="submit">Send me the sample</button>
+        </form>
+      </div>
+      <div class="small muted mt-10">We respect your privacy. Unsubscribe anytime.</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="muted">© <span id="year"></span> YourBrand. All rights reserved.</div>
+      <div class="small mt-10">
+        <a href="#" class="muted" style="margin-right:12px">Privacy</a>
+        <a href="#" class="muted" style="margin-right:12px">Terms</a>
+        <a href="#" class="muted">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky CTA (mobile) -->
+  <div class="sticky-cta" role="region" aria-label="Quick checkout">
+    <div style="flex:1 1 auto">
+      <div style="font-weight:800">ReelBundle</div>
+      <div class="small muted">Limited-time price ends in <span id="countdown-2">—</span></div>
+    </div>
+    <a href="#" class="btn btn-primary" onclick="openCheckout(event)">Buy</a>
+  </div>
+
+  <!-- Cookie notice -->
+  <div class="cookie" id="cookie">
+    <p>We use cookies to improve your experience. By continuing you accept our <a href="#">privacy policy</a>.</p>
+    <div style="display:flex; gap:8px; justify-content:flex-end">
+      <button class="btn btn-ghost" id="cookie-dismiss">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Simple scripts -->
+  <script>
+    // Countdown (example: countdown to 48 hours from first visit or fixed date)
+    (function(){
+      // Set a fixed end date OR create urgency using session/local storage
+      const FIXED_END = null; // e.g. new Date('2025-09-10T23:59:59')
+
+      function getDeadline(){
+        if(FIXED_END) return FIXED_END;
+        const key = 'reelbundle-deadline';
+        const stored = localStorage.getItem(key);
+        if(stored) return new Date(stored);
+        const deadline = new Date(Date.now() + 48*60*60*1000); // 48 hours from now
+        localStorage.setItem(key, deadline.toISOString());
+        return deadline;
+      }
+
+      const deadline = getDeadline();
+      function update(){
+        const now = new Date();
+        const diff = deadline - now;
+        if(diff <= 0){
+          document.getElementById('countdown').textContent = 'Offer ended';
+          document.getElementById('countdown-2').textContent = '—';
+          return;
+        }
+        const hrs = Math.floor(diff/36e5);
+        const mins = Math.floor((diff%36e5)/6e4);
+        const secs = Math.floor((diff%6e4)/1000);
+        document.getElementById('countdown').textContent = hrs + 'h ' + String(mins).padStart(2,'0') + 'm';
+        document.getElementById('countdown-2').textContent = hrs + 'h ' + String(mins).padStart(2,'0') + 'm';
+      }
+      update();
+      setInterval(update,1000);
+    })();
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Cookie notice
+    (function(){
+      const el = document.getElementById('cookie');
+      const dismissed = localStorage.getItem('reelbundle-cookie');
+      if(!dismissed) el.style.display = 'block';
+      document.getElementById('cookie-dismiss').addEventListener('click', function(){
+        localStorage.setItem('reelbundle-cookie','1');
+        el.style.display = 'none';
+      });
+    })();
+
+    // Lead capture (demo only – replace with your email provider / webhook)
+    document.getElementById('lead').addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = this.email.value.trim();
+      if(!email) return alert('Enter an email');
+      // Demo: show thank you message. Replace with fetch() to your backend.
+      this.querySelector('button').textContent = 'Sent ✓';
+      this.querySelector('button').disabled = true;
+      setTimeout(()=>{
+        this.reset();
+        this.querySelector('button').textContent = 'Send me the sample';
+        this.querySelector('button').disabled = false;
+        alert('Sample sent to ' + email + ' (demo)');
+      },800);
+    });
+
+    // Checkout handler (demo) — replace with Stripe/PayPal integration
+    function openCheckout(e){
+      e.preventDefault();
+      // Replace the URL below with your real hosted checkout or Stripe Checkout session URL
+      const checkoutUrl = 'https://buy.stripe.com/test_123456';
+      // Simple analytics: record click then open
+      try{ navigator.sendBeacon && navigator.sendBeacon('/_track', JSON.stringify({event:'checkout-click'})); }catch(e){}
+      window.open(checkoutUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
